@@ -21,10 +21,11 @@ app
   })
 })
 
-  .post((req,res)=>{
+  .post((req,res,)=>{
     let todo = req.body;
     let task = todo.task;
     let desc = todo.description;
+    console.log(todo)
     client.query(`INSERT INTO chores (task, description)
     VALUES ('${task}','${desc}') RETURNING *`)
     .then(result=>{
@@ -45,7 +46,8 @@ app
     let todo = req.body;
     let task = todo.task;
     let desc = todo.description;
-    client.query(`UPDATE chores SET task = ${task}, description = ${desc} WHERE id = ${req.params.id} RETURNING *`)
+    console.log(todo)
+    client.query(`UPDATE chores SET task = '${task}', description = '${desc}' WHERE id = ${req.params.id} RETURNING *`)
     .then(result=>{
       res.status(200).set('Content-Type','appliction/json').send(result.rows)
     })
